@@ -10,9 +10,9 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 arma::cx_mat RcppWaveletTest(std::vector<double> x) {
   float samplerate_hz(1);
-  float frequency_min = 0.015625;
+  float frequency_min = 0.001953125;
   float frequency_max = 0.5;
-  float bands_per_octave = 8;
+  float bands_per_octave = 32;
   wavelet::Filterbank cwt(samplerate_hz,
                           frequency_min,
                           frequency_max,
@@ -20,5 +20,4 @@ arma::cx_mat RcppWaveletTest(std::vector<double> x) {
   std::size_t numbands(cwt.size());
   cwt.reset(); // Reset processing
   return cwt.process(x);
-  
 }
