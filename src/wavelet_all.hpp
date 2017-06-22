@@ -31,7 +31,7 @@
 #ifndef wavelet_all_h
 #define wavelet_all_h
 
-#include "core/filterbank.hpp"
+#include "filterbank.hpp"
 
 /**
     @mainpage Wavelet - A library for online estimation of the Continuous Wavelet Transform

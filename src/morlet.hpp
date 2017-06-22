@@ -1,7 +1,7 @@
 /*
- * paul.h
+ * morlet.h
  *
- * Paul Wavelet
+ * Complex Morlet Wavelet
  *
  * Contact:
  * - Jules Françoise <jules.francoise@ircam.fr>
@@ -31,25 +31,26 @@
  */
 
 
-#ifndef paul_h
-#define paul_h
+#ifndef morlet_h
+#define morlet_h
 
-#include "../core/wavelet.hpp"
+#include "wavelet.hpp"
 
 namespace wavelet {
     /**
-     * @class PaulWavelet
-     * @brief Paul Wavelet
+     * @class MorletWavelet
+     * @brief Complex Morlet Wavelet
      *
-     * @details TODO
+     * @details the Morlet wavelet is a complex plane wave windowed by a gaussian envelope.@n
+     * see Wikipedia: http://en.wikipedia.org/wiki/Morlet_wavelet
      */
-    class PaulWavelet : public Wavelet {
+    class MorletWavelet : public Wavelet {
     public:
         
         /**
          * @brief Default value of the Carrier frequency
          */
-        static const unsigned int DEFAULT_ORDER() { return 2; }
+        static const float DEFAULT_OMEGA0() { return 5.; }
         
 #pragma mark -
 #pragma mark === Public Interface ===
@@ -61,24 +62,24 @@ namespace wavelet {
          * @brief Constructor
          * @param samplerate wavelet sampling rate
          */
-        PaulWavelet(float samplerate);
+        MorletWavelet(float samplerate);
         
         /**
          * @brief Copy Constructor
          * @param src source Wavelet
          */
-        PaulWavelet(PaulWavelet const& src);
+        MorletWavelet(MorletWavelet const& src);
         
         /**
          * @brief Assignment operator
          * @param src source Wavelet
          */
-        PaulWavelet& operator=(PaulWavelet const& src);
+        MorletWavelet& operator=(MorletWavelet const& src);
         
         /**
          * @brief Constructor
          */
-        virtual ~PaulWavelet();
+        virtual ~MorletWavelet();
         
         ///@}
         
@@ -136,9 +137,9 @@ namespace wavelet {
 #pragma mark -
 #pragma mark === Public Attributes ===
         /**
-         * @brief Order of the Paul Wavelet
+         * @brief Carrier Frequency
          */
-        Attribute<unsigned int> order;
+        Attribute<float> omega0;
         
         ///@cond DEVDOC
 #ifndef WAVELET_TESTING
@@ -163,10 +164,9 @@ namespace wavelet {
          */
         virtual boost::any getAttribute_internal(std::string attr_name) const;
         
-        unsigned int factorial(unsigned int n) const;
-        
 #pragma mark -
 #pragma mark === Protected Attributes ===
+        
         ///@endcond
     };
 }
