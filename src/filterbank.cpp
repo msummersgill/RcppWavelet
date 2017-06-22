@@ -380,6 +380,12 @@ void wavelet::Filterbank::update(float value)
 This block is being called by current R function.
  
  Not sure why it's only returning two columns, in progress of debugging
+ 
+ Where is 'wavelets' defined?
+ 
+ TODO:
+ - eliminate unnecessary type conversion and pass arma::vec directly from calling function
+ 
 ###################################################### */
 
 arma::cx_mat wavelet::Filterbank::process(std::vector<double> values)
@@ -395,15 +401,18 @@ arma::cx_mat wavelet::Filterbank::process(std::vector<double> values)
     // iterate from 0 to the size??
     for (std::size_t filter_index=0 ; filter_index<size() ; filter_index++) {
       
+      // get size of previous window
         std::size_t previous_window_size = wavelets_[filter_index]->window_size.get();
       //set Wavelet mode to SPECTRAL
         wavelets_[filter_index]->mode.set(Wavelet::SPECTRAL);
         
-      //set 
+      //set window size based on filter index
         wavelets_[filter_index]->window_size.set(values.size());
-        //
+        // calculate sig_spectral_tmp as hadamard product of fft and values in filter index
         sig_spectral_tmp = sig_spectral % arma::conv_to<arma::cx_vec>::from(wavelets_[filter_index]->values);
+        // take inverse fourier transform of hadamard product of fft for all values and fft for those in filter index
         scalogram.col(filter_index) = arma::ifft(sig_spectral_tmp);
+        //?
         if (rescale.get())
             scalogram.col(filter_index) /= (sqrt(wavelets_[filter_index]->scale.get()));
         wavelets_[filter_index]->window_size.set(previous_window_size);
@@ -411,6 +420,8 @@ arma::cx_mat wavelet::Filterbank::process(std::vector<double> values)
     }
     return scalogram;
 }
+
+/* ################################################### */
 
 arma::cx_mat wavelet::Filterbank::process_online(std::vector<double> values)
 {
