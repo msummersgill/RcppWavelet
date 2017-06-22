@@ -36,7 +36,6 @@
 #ifndef __xmm_lib__attribute__
 #define __xmm_lib__attribute__
 
-#include <Rcpp.h>
 #include <exception>
 #include <stdexcept>
 #include <limits>

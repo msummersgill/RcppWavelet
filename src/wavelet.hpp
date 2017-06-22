@@ -31,7 +31,7 @@
  */
 
 
-// [[Rcpp::depends(RcppArmadillo)]]
+
 // [[Rcpp::depends(BH)]]
 
 #ifndef wavelet_h

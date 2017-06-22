@@ -30,9 +30,12 @@
  * along with Wavelet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// [[Rcpp::depends(RcppArmadillo)]]
 
+#include "RcppArmadillo.h"
 #include "filterbank.hpp"
 #include <memory>
+
 
 wavelet::Filterbank::Filterbank(float samplerate_,
                                 float frequency_min_,
@@ -373,17 +376,32 @@ void wavelet::Filterbank::update(float value)
     frame_index_++;
 }
 
-#ifdef USE_ARMA
+/* ###################################################
+This block is being called by current R function.
+ 
+ Not sure why it's only returning two columns, in progress of debugging
+###################################################### */
+
 arma::cx_mat wavelet::Filterbank::process(std::vector<double> values)
 {
-    //// SPECTRAL METHOD
+  //// SPECTRAL METHOD
+  //FFT the whole vector, assing to sig_spectral?
     arma::cx_vec sig_spectral = arma::fft(arma::conv_to<arma::vec>::from(values));
+  // Define sig_spectral_tmp
     arma::cx_vec sig_spectral_tmp;
+    // define a complex matrix based on the vector length and size- what size??
     arma::cx_mat scalogram(values.size(), size());
+    
+    // iterate from 0 to the size??
     for (std::size_t filter_index=0 ; filter_index<size() ; filter_index++) {
+      
         std::size_t previous_window_size = wavelets_[filter_index]->window_size.get();
+      //set Wavelet mode to SPECTRAL
         wavelets_[filter_index]->mode.set(Wavelet::SPECTRAL);
+        
+      //set 
         wavelets_[filter_index]->window_size.set(values.size());
+        //
         sig_spectral_tmp = sig_spectral % arma::conv_to<arma::cx_vec>::from(wavelets_[filter_index]->values);
         scalogram.col(filter_index) = arma::ifft(sig_spectral_tmp);
         if (rescale.get())
@@ -403,7 +421,7 @@ arma::cx_mat wavelet::Filterbank::process_online(std::vector<double> values)
     }
     return scalogram;
 }
-#endif
+
 
 template <>
 void wavelet::checkLimits<wavelet::Family>(wavelet::Family const& value,

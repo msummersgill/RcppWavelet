@@ -36,7 +36,6 @@
 #ifndef filterbank_h
 #define filterbank_h
 
-#include <Rcpp.h>
 #include "RcppArmadillo.h"
 #include "wavelet.hpp"
 #include "lowpass.hpp"
