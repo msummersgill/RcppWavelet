@@ -378,11 +378,6 @@ void wavelet::Filterbank::update(float value)
 
 /* ###################################################
 This block is being called by current R function.
- 
- Not sure why it's only returning two columns, in progress of debugging
- 
- Where is 'wavelets' defined?
- 
  TODO:
  - eliminate unnecessary type conversion and pass arma::vec directly from calling function
  
@@ -397,15 +392,12 @@ arma::cx_mat wavelet::Filterbank::process(std::vector<double> values)
     arma::cx_vec sig_spectral_tmp;
     // define a complex matrix based on the vector length and size- what size??
     arma::cx_mat scalogram(values.size(), size());
-    
     // iterate from 0 to the size??
     for (std::size_t filter_index=0 ; filter_index<size() ; filter_index++) {
-      
       // get size of previous window
         std::size_t previous_window_size = wavelets_[filter_index]->window_size.get();
       //set Wavelet mode to SPECTRAL
         wavelets_[filter_index]->mode.set(Wavelet::SPECTRAL);
-        
       //set window size based on filter index
         wavelets_[filter_index]->window_size.set(values.size());
         // calculate sig_spectral_tmp as hadamard product of fft and values in filter index
@@ -421,7 +413,6 @@ arma::cx_mat wavelet::Filterbank::process(std::vector<double> values)
     return scalogram;
 }
 
-/* ################################################### */
 
 arma::cx_mat wavelet::Filterbank::process_online(std::vector<double> values)
 {

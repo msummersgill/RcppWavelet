@@ -1,11 +1,10 @@
 Package: RcppWavelet
 Type: Package
-Title: What the package does (short line)
+Title: C++ Implemententation of Continuous Wavelet Transform
 Version: 1.0
 Date: 2017-06-22
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R: person("Matt", "Summersgill", email = "matt.summersgill@hpidc.com",role = c("aut", "cre"))
+Description: C++ Implemententation of Continuous Wavelet Transform
+License: GPL 3.0
 Imports: Rcpp (>= 0.12.11)
 LinkingTo: Rcpp, RcppArmadillo, BH

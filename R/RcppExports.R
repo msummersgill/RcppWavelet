@@ -25,7 +25,7 @@ rcpparma_bothproducts <- function(x) {
     .Call('RcppWavelet_rcpparma_bothproducts', PACKAGE = 'RcppWavelet', x)
 }
 
-RcppWaveletTest <- function(x, bands_per_octave) {
-    .Call('RcppWavelet_RcppWaveletTest', PACKAGE = 'RcppWavelet', x, bands_per_octave)
+RcppWaveletTest <- function(x, bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1) {
+    .Call('RcppWavelet_RcppWaveletTest', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz)
 }
 
