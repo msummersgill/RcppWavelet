@@ -74,13 +74,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // RcppWaveletTest
-arma::cx_mat RcppWaveletTest(std::vector<double> x);
-RcppExport SEXP RcppWavelet_RcppWaveletTest(SEXP xSEXP) {
+arma::cx_mat RcppWaveletTest(std::vector<double> x, float bands_per_octave);
+RcppExport SEXP RcppWavelet_RcppWaveletTest(SEXP xSEXP, SEXP bands_per_octaveSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::vector<double> >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(RcppWaveletTest(x));
+    Rcpp::traits::input_parameter< float >::type bands_per_octave(bands_per_octaveSEXP);
+    rcpp_result_gen = Rcpp::wrap(RcppWaveletTest(x, bands_per_octave));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -92,7 +93,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"RcppWavelet_rcpparma_outerproduct", (DL_FUNC) &RcppWavelet_rcpparma_outerproduct, 1},
     {"RcppWavelet_rcpparma_innerproduct", (DL_FUNC) &RcppWavelet_rcpparma_innerproduct, 1},
     {"RcppWavelet_rcpparma_bothproducts", (DL_FUNC) &RcppWavelet_rcpparma_bothproducts, 1},
-    {"RcppWavelet_RcppWaveletTest", (DL_FUNC) &RcppWavelet_RcppWaveletTest, 1},
+    {"RcppWavelet_RcppWaveletTest", (DL_FUNC) &RcppWavelet_RcppWaveletTest, 2},
     {NULL, NULL, 0}
 };
 
