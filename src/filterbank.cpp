@@ -33,6 +33,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "RcppArmadillo.h"
+#include "fftw3.h"
 #include "filterbank.hpp"
 #include <memory>
 
