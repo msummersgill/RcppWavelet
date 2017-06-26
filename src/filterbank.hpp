@@ -248,6 +248,12 @@ namespace wavelet {
          */
         arma::cx_mat process(std::vector<double> values);
         
+        
+        /**
+         * @Same as process but with tweaks to allow parallel processing of bands
+         */
+        arma::cx_mat processParallel(std::vector<double> values, int cores);
+        
         /**
          * @brief batch computation of the scalogram using online estimation
          * @param values array of values (complete signal : length T)

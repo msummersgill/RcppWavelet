@@ -6,76 +6,9 @@
 
 using namespace Rcpp;
 
-// computeGCD
-int computeGCD(int a, int b);
-RcppExport SEXP RcppWavelet_computeGCD(SEXP aSEXP, SEXP bSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type a(aSEXP);
-    Rcpp::traits::input_parameter< int >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(computeGCD(a, b));
-    return rcpp_result_gen;
-END_RCPP
-}
-// computeLCM
-int computeLCM(int a, int b);
-RcppExport SEXP RcppWavelet_computeLCM(SEXP aSEXP, SEXP bSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type a(aSEXP);
-    Rcpp::traits::input_parameter< int >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(computeLCM(a, b));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpparma_hello_world
-arma::mat rcpparma_hello_world();
-RcppExport SEXP RcppWavelet_rcpparma_hello_world() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpparma_hello_world());
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpparma_outerproduct
-arma::mat rcpparma_outerproduct(const arma::colvec& x);
-RcppExport SEXP RcppWavelet_rcpparma_outerproduct(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_outerproduct(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpparma_innerproduct
-double rcpparma_innerproduct(const arma::colvec& x);
-RcppExport SEXP RcppWavelet_rcpparma_innerproduct(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_innerproduct(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpparma_bothproducts
-Rcpp::List rcpparma_bothproducts(const arma::colvec& x);
-RcppExport SEXP RcppWavelet_rcpparma_bothproducts(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_bothproducts(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// RcppWaveletTest
-arma::cx_mat RcppWaveletTest(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
-RcppExport SEXP RcppWavelet_RcppWaveletTest(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
+// analyze
+Rcpp::List analyze(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
+RcppExport SEXP RcppWavelet_analyze(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -84,19 +17,60 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< float >::type frequency_min(frequency_minSEXP);
     Rcpp::traits::input_parameter< float >::type frequency_max(frequency_maxSEXP);
     Rcpp::traits::input_parameter< float >::type samplerate_hz(samplerate_hzSEXP);
-    rcpp_result_gen = Rcpp::wrap(RcppWaveletTest(x, bands_per_octave, frequency_min, frequency_max, samplerate_hz));
+    rcpp_result_gen = Rcpp::wrap(analyze(x, bands_per_octave, frequency_min, frequency_max, samplerate_hz));
+    return rcpp_result_gen;
+END_RCPP
+}
+// analyzeParallel
+Rcpp::List analyzeParallel(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz, int cores);
+RcppExport SEXP RcppWavelet_analyzeParallel(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP, SEXP coresSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<double> >::type x(xSEXP);
+    Rcpp::traits::input_parameter< float >::type bands_per_octave(bands_per_octaveSEXP);
+    Rcpp::traits::input_parameter< float >::type frequency_min(frequency_minSEXP);
+    Rcpp::traits::input_parameter< float >::type frequency_max(frequency_maxSEXP);
+    Rcpp::traits::input_parameter< float >::type samplerate_hz(samplerate_hzSEXP);
+    Rcpp::traits::input_parameter< int >::type cores(coresSEXP);
+    rcpp_result_gen = Rcpp::wrap(analyzeParallel(x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, cores));
+    return rcpp_result_gen;
+END_RCPP
+}
+// getScales
+std::vector<double> getScales(float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
+RcppExport SEXP RcppWavelet_getScales(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< float >::type bands_per_octave(bands_per_octaveSEXP);
+    Rcpp::traits::input_parameter< float >::type frequency_min(frequency_minSEXP);
+    Rcpp::traits::input_parameter< float >::type frequency_max(frequency_maxSEXP);
+    Rcpp::traits::input_parameter< float >::type samplerate_hz(samplerate_hzSEXP);
+    rcpp_result_gen = Rcpp::wrap(getScales(bands_per_octave, frequency_min, frequency_max, samplerate_hz));
+    return rcpp_result_gen;
+END_RCPP
+}
+// getSize
+std::size_t getSize(float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
+RcppExport SEXP RcppWavelet_getSize(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< float >::type bands_per_octave(bands_per_octaveSEXP);
+    Rcpp::traits::input_parameter< float >::type frequency_min(frequency_minSEXP);
+    Rcpp::traits::input_parameter< float >::type frequency_max(frequency_maxSEXP);
+    Rcpp::traits::input_parameter< float >::type samplerate_hz(samplerate_hzSEXP);
+    rcpp_result_gen = Rcpp::wrap(getSize(bands_per_octave, frequency_min, frequency_max, samplerate_hz));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"RcppWavelet_computeGCD", (DL_FUNC) &RcppWavelet_computeGCD, 2},
-    {"RcppWavelet_computeLCM", (DL_FUNC) &RcppWavelet_computeLCM, 2},
-    {"RcppWavelet_rcpparma_hello_world", (DL_FUNC) &RcppWavelet_rcpparma_hello_world, 0},
-    {"RcppWavelet_rcpparma_outerproduct", (DL_FUNC) &RcppWavelet_rcpparma_outerproduct, 1},
-    {"RcppWavelet_rcpparma_innerproduct", (DL_FUNC) &RcppWavelet_rcpparma_innerproduct, 1},
-    {"RcppWavelet_rcpparma_bothproducts", (DL_FUNC) &RcppWavelet_rcpparma_bothproducts, 1},
-    {"RcppWavelet_RcppWaveletTest", (DL_FUNC) &RcppWavelet_RcppWaveletTest, 5},
+    {"RcppWavelet_analyze", (DL_FUNC) &RcppWavelet_analyze, 5},
+    {"RcppWavelet_analyzeParallel", (DL_FUNC) &RcppWavelet_analyzeParallel, 6},
+    {"RcppWavelet_getScales", (DL_FUNC) &RcppWavelet_getScales, 4},
+    {"RcppWavelet_getSize", (DL_FUNC) &RcppWavelet_getSize, 4},
     {NULL, NULL, 0}
 };
 

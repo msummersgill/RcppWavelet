@@ -36,6 +36,9 @@
 #include "filterbank.hpp"
 #include <memory>
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 wavelet::Filterbank::Filterbank(float samplerate_,
                                 float frequency_min_,
@@ -376,35 +379,21 @@ void wavelet::Filterbank::update(float value)
     frame_index_++;
 }
 
-/* ###################################################
-This block is being called by current R function.
- TODO:
- - eliminate unnecessary type conversion and pass arma::vec directly from calling function
- 
-###################################################### */
-
 arma::cx_mat wavelet::Filterbank::process(std::vector<double> values)
 {
   //// SPECTRAL METHOD
-  //FFT the whole vector, assing to sig_spectral?
     arma::cx_vec sig_spectral = arma::fft(arma::conv_to<arma::vec>::from(values));
-  // Define sig_spectral_tmp
     arma::cx_vec sig_spectral_tmp;
-    // define a complex matrix based on the vector length and size- what size??
     arma::cx_mat scalogram(values.size(), size());
-    // iterate from 0 to the size??
+    
     for (std::size_t filter_index=0 ; filter_index<size() ; filter_index++) {
-      // get size of previous window
+      //Rcpp::Rcout << "sig_spectral = " << sig_spectral << std::endl;
         std::size_t previous_window_size = wavelets_[filter_index]->window_size.get();
-      //set Wavelet mode to SPECTRAL
         wavelets_[filter_index]->mode.set(Wavelet::SPECTRAL);
-      //set window size based on filter index
         wavelets_[filter_index]->window_size.set(values.size());
-        // calculate sig_spectral_tmp as hadamard product of fft and values in filter index
         sig_spectral_tmp = sig_spectral % arma::conv_to<arma::cx_vec>::from(wavelets_[filter_index]->values);
         // take inverse fourier transform of hadamard product of fft for all values and fft for those in filter index
         scalogram.col(filter_index) = arma::ifft(sig_spectral_tmp);
-        //?
         if (rescale.get())
             scalogram.col(filter_index) /= (sqrt(wavelets_[filter_index]->scale.get()));
         wavelets_[filter_index]->window_size.set(previous_window_size);
@@ -413,6 +402,34 @@ arma::cx_mat wavelet::Filterbank::process(std::vector<double> values)
     return scalogram;
 }
 
+
+// [[Rcpp::plugins(openmp)]]
+
+arma::cx_mat wavelet::Filterbank::processParallel(std::vector<double> values, int cores){
+  //// SPECTRAL METHOD
+  arma::cx_vec sig_spectral = arma::fft(arma::conv_to<arma::vec>::from(values));
+  arma::cx_mat scalogram(values.size(), size());
+  
+#ifdef _OPENMP
+  omp_set_num_threads(cores);
+#endif
+#pragma omp parallel for //schedule(static)
+
+  for (std::size_t filter_index=0 ; filter_index<size() ; filter_index++) {
+    arma::cx_vec sig_spectral_tmp_par; // Define sig_spectral_tmp_par within loop so it will be private to each thread
+    std::size_t previous_window_size = wavelets_[filter_index]->window_size.get();
+    wavelets_[filter_index]->mode.set(Wavelet::SPECTRAL); //SET mode SPECTRAL
+    wavelets_[filter_index]->window_size.set(values.size()); //SET window_size
+    sig_spectral_tmp_par = sig_spectral % arma::conv_to<arma::cx_vec>::from(wavelets_[filter_index]->values);
+    scalogram.col(filter_index) = arma::ifft(sig_spectral_tmp_par);
+    if (rescale.get())
+      scalogram.col(filter_index) /= (sqrt(wavelets_[filter_index]->scale.get())); //rescale
+    wavelets_[filter_index]->window_size.set(previous_window_size); //SET window_size to previous_window_size
+    wavelets_[filter_index]->mode.set(Wavelet::RECURSIVE); //SET mode RECURSIVE
+  }
+
+return scalogram;
+}
 
 arma::cx_mat wavelet::Filterbank::process_online(std::vector<double> values)
 {
