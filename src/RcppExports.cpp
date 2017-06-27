@@ -38,7 +38,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // getScales
-std::vector<double> getScales(float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
+arma::vec getScales(float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
 RcppExport SEXP RcppWavelet_getScales(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

@@ -18,7 +18,9 @@ Rcpp::List analyze(std::vector<double> x,
   std::size_t numbands(cwt.size());
   cwt.reset();
   arma::cx_mat scalogram = cwt.process(x);
-  std::vector<double> periods = cwt.scales;
+  //std::vector<double> periods = cwt.scales;
+  std::vector<double> frequencies = cwt.frequencies;
+  arma::vec periods = 1/arma::conv_to<arma::vec>::from(frequencies); 
   
   return Rcpp::List::create(Rcpp::Named("scalogram")=scalogram,
                             Rcpp::Named("periods")=periods);
@@ -38,7 +40,9 @@ Rcpp::List analyzeParallel(std::vector<double> x,
   std::size_t numbands(cwt.size());
   cwt.reset();
   arma::cx_mat scalogram = cwt.processParallel(x, cores);
-  std::vector<double> periods = cwt.scales;
+  //std::vector<double> periods = cwt.scales;
+  std::vector<double> frequencies = cwt.frequencies;
+  arma::vec periods = 1/arma::conv_to<arma::vec>::from(frequencies); 
   
   return Rcpp::List::create(Rcpp::Named("scalogram")=scalogram,
                             Rcpp::Named("periods")=periods);

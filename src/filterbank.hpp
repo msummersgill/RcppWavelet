@@ -255,6 +255,12 @@ namespace wavelet {
         arma::cx_mat processParallel(std::vector<double> values, int cores);
         
         /**
+         * @Same as process but with tweaks to allow parallel processing of bands and FFTW library
+         */
+        
+        //arma::cx_mat processParallelFftw(std::vector<double> values, int cores);
+        
+        /**
          * @brief batch computation of the scalogram using online estimation
          * @param values array of values (complete signal : length T)
          * @return complex scalogram (C-like array with size: T * number of bands)
