@@ -2,29 +2,58 @@
 
 *Based on the [work of Jules Françoise and Frederic Bevilacqua at IRCAM](https://github.com/Ircam-RnD/wavelet)*
 
+## Installation
+
+System Requirements:
+
++ Armadillo - C++ Linear Algebra Library
++ Boost C++ Libraries
++ OpenMP
+
+```r
+library(devtools)
+devtools::install_github("msummersgill/RcppWavelet")
+```
+
 ### Core Functionality
 
 `RcppWavelet::analyze()` executes a continuous wavelet transform on an input numeric vector. Specifying `cores > 1` uses `openmp` to enable multi-threading. Since the calculation of coefficients for each band can be executed independently, the processing time is substantially reduced for each additional core used.
 
 Two wavelets are currently implemented: Morlet and Paul.
 
-```r
-Wavelet <- RcppWavelet::analyzeParallel(x = signal_to_analyze,
-                                        bands_per_octave = 128,
-                                        frequency_min = 0.02,
-                                        frequency_max = 0.5,
-                                        samplerate_hz = 1,
-                                        mother_wavelet = "MORLET",
-                                        morlet_carrier = 30,
-                                        cores = 6)
-```
-The returned object is a list of four elements:
+#### Input Parameters
 
-+ signal: a normalized input vector of numeric values 
-+ scalogram: a complex matrix representing the continuous wavelet transform of the input vector.
-+ frequencies: the periods of each band calculated
-+ periods: the corresponding periods for each band
-+ configuration: a summary of the wavelet's parameters
++ `x`: A zero-mean, normalized numeric vector with no `NULL` values
++ `bands_per_octave`: Number of bands to calculate for each doubling of the frequency across the range
++ `frequency_min`: Min Frequency
++ `frequency_max`: Max Frequency
++ `samplerate_hz`: Input signal sample rate (Hertz)
++ `mother_wavelet`: Mother Wavelet, either "MORLET" or "PAUL"
++ `morlet_carrier`:  The carrier frequency for the Morlet Wavelet *(not relevant for Paul wavelet)*
++ `paul_order`:  The order of the Paul Wavelet to be used *(not relevant for Morlet wavelet)*
++ `cores`: number of threads to be created using `openMP`
+
+```r
+Wavelet <- RcppWavelet::analyze(x = signal_to_analyze,
+                                bands_per_octave = 32,
+                                frequency_min = 0.02,
+                                frequency_max = 0.5,
+                                samplerate_hz = 1,
+                                mother_wavelet = "MORLET",
+                                morlet_carrier = 30,
+                                paul_order = 2,
+                                cores = 6)
+```
+
+#### Output
+
+The returned object is a list of five elements. 
+
++ `signal`: original input vector
++ `scalogram`: a complex matrix representing the continuous wavelet transform of the input vector.
++ `frequencies`: the periods of each band calculated
++ `periods`: the corresponding periods for each band
++ `configuration`: a summary of the wavelet's parameters
 
 
 ### Helper functions
@@ -34,12 +63,7 @@ The returned object is a list of four elements:
 `RcppWavelet::reconstruct()` 
 
 
-### System Requirements
 
-+ Armadillo - C++ Linear Algebra Library
-+ Boost C++ Libraries
-+ OpenMP
-+ *Potential - libFFTW*
 
 ### Potential Further Development
 
