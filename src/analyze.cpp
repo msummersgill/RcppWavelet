@@ -11,17 +11,34 @@ Rcpp::List analyze(std::vector<double> x,
                              float frequency_min = 0.001953125,
                              float frequency_max = 0.5,
                              float samplerate_hz = 1,
-                             std::string mother_wavelet = "MORLET") {
+                             std::string mother_wavelet = "MORLET",
+                             float morlet_carrier = 5,
+                             unsigned int paul_order = 2,
+                             std::string optimisation = "NONE") {
   wavelet::Filterbank cwt(samplerate_hz,
                           frequency_min,
                           frequency_max,
                           bands_per_octave);
+  
   if (mother_wavelet == "MORLET") {
     cwt.setAttribute("family",wavelet::Family::MORLET);
+    cwt.setAttribute("omega0",morlet_carrier);
   } else if (mother_wavelet == "PAUL") {
     cwt.setAttribute("family",wavelet::Family::PAUL);
+    cwt.setAttribute("order",paul_order);
   } else {
     throw std::runtime_error("Invalid mother_wavelet. Try 'MORLET' or 'PAUL'");
+  }
+  
+  
+  if (optimisation == "NONE") {
+    cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::NONE);
+  } else if (optimisation == "STANDARD") {
+    cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::STANDARD);
+  } else if (optimisation == "AGRESSIVE") {
+    cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::AGRESSIVE);
+  } else {
+    throw std::runtime_error("Invalid optimisation. Try 'NONE', 'STANDARD', or 'AGGRESSIVE'");
   }
   
   std::size_t numbands(cwt.size());
@@ -37,14 +54,15 @@ Rcpp::List analyze(std::vector<double> x,
 
 // [[Rcpp::export]]
 Rcpp::List analyzeParallel(std::vector<double> x,
-                             float bands_per_octave = 8,
-                             float frequency_min = 0.001953125,
-                             float frequency_max = 0.5,
-                             float samplerate_hz = 1,
-                             int cores = 1,
-                             std::string mother_wavelet = "MORLET",
-                             std::string optimisation = "NONE",
-                             float carrier = 5) {
+                           float bands_per_octave = 8,
+                           float frequency_min = 0.001953125,
+                           float frequency_max = 0.5,
+                           float samplerate_hz = 1,
+                           int cores = 1,
+                           std::string mother_wavelet = "MORLET",
+                           float morlet_carrier = 5,
+                           unsigned int paul_order = 2,
+                           std::string optimisation = "NONE") {
   
   wavelet::Filterbank cwt(samplerate_hz,
                           frequency_min,
@@ -53,22 +71,24 @@ Rcpp::List analyzeParallel(std::vector<double> x,
   
   if (mother_wavelet == "MORLET") {
     cwt.setAttribute("family",wavelet::Family::MORLET);
+    cwt.setAttribute("omega0",morlet_carrier);
   } else if (mother_wavelet == "PAUL") {
     cwt.setAttribute("family",wavelet::Family::PAUL);
+    cwt.setAttribute("order",paul_order);
   } else {
     throw std::runtime_error("Invalid mother_wavelet. Try 'MORLET' or 'PAUL'");
   }
   
-  cwt.setAttribute("omega0",carrier);
-  //if (optimisation == "NONE") {
-  //  cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::NONE);
-  //} else if (optimisation == "STANDARD") {
-  //  cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::STANDARD);
-  //} else if (optimisation == "AGRESSIVE") {
-  //  cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::AGRESSIVE);
-  //} else {
-  //  throw std::runtime_error("Invalid optimisation. Try 'NONE', 'STANDARD', or 'AGGRESSIVE'");
-  //}
+  
+  if (optimisation == "NONE") {
+    cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::NONE);
+  } else if (optimisation == "STANDARD") {
+    cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::STANDARD);
+  } else if (optimisation == "AGRESSIVE") {
+    cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::AGRESSIVE);
+  } else {
+    throw std::runtime_error("Invalid optimisation. Try 'NONE', 'STANDARD', or 'AGGRESSIVE'");
+  }
   
   std::size_t numbands(cwt.size());
   cwt.reset();
