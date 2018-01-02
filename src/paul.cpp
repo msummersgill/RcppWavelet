@@ -107,7 +107,7 @@ std::string wavelet::PaulWavelet::info() const
 {
     std::stringstream infostrstream;
     infostrstream << Wavelet::info();
-    infostrstream << "\tType: Morlet\n";
+    infostrstream << "\tType: Paul\n";
     infostrstream << "\tOrder: " << this->order.get() << "\n";
     return infostrstream.str();
 }

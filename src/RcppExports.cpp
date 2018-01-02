@@ -7,8 +7,8 @@
 using namespace Rcpp;
 
 // analyze
-Rcpp::List analyze(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
-RcppExport SEXP _RcppWavelet_analyze(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
+Rcpp::List analyze(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz, std::string mother_wavelet);
+RcppExport SEXP _RcppWavelet_analyze(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP, SEXP mother_waveletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -17,13 +17,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< float >::type frequency_min(frequency_minSEXP);
     Rcpp::traits::input_parameter< float >::type frequency_max(frequency_maxSEXP);
     Rcpp::traits::input_parameter< float >::type samplerate_hz(samplerate_hzSEXP);
-    rcpp_result_gen = Rcpp::wrap(analyze(x, bands_per_octave, frequency_min, frequency_max, samplerate_hz));
+    Rcpp::traits::input_parameter< std::string >::type mother_wavelet(mother_waveletSEXP);
+    rcpp_result_gen = Rcpp::wrap(analyze(x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, mother_wavelet));
     return rcpp_result_gen;
 END_RCPP
 }
 // analyzeParallel
-Rcpp::List analyzeParallel(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz, int cores);
-RcppExport SEXP _RcppWavelet_analyzeParallel(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP, SEXP coresSEXP) {
+Rcpp::List analyzeParallel(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz, int cores, std::string mother_wavelet, std::string optimization);
+RcppExport SEXP _RcppWavelet_analyzeParallel(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP, SEXP coresSEXP, SEXP mother_waveletSEXP, SEXP optimizationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -33,7 +34,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< float >::type frequency_max(frequency_maxSEXP);
     Rcpp::traits::input_parameter< float >::type samplerate_hz(samplerate_hzSEXP);
     Rcpp::traits::input_parameter< int >::type cores(coresSEXP);
-    rcpp_result_gen = Rcpp::wrap(analyzeParallel(x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, cores));
+    Rcpp::traits::input_parameter< std::string >::type mother_wavelet(mother_waveletSEXP);
+    Rcpp::traits::input_parameter< std::string >::type optimization(optimizationSEXP);
+    rcpp_result_gen = Rcpp::wrap(analyzeParallel(x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, cores, mother_wavelet, optimization));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -67,8 +70,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_RcppWavelet_analyze", (DL_FUNC) &_RcppWavelet_analyze, 5},
-    {"_RcppWavelet_analyzeParallel", (DL_FUNC) &_RcppWavelet_analyzeParallel, 6},
+    {"_RcppWavelet_analyze", (DL_FUNC) &_RcppWavelet_analyze, 6},
+    {"_RcppWavelet_analyzeParallel", (DL_FUNC) &_RcppWavelet_analyzeParallel, 8},
     {"_RcppWavelet_getScales", (DL_FUNC) &_RcppWavelet_getScales, 4},
     {"_RcppWavelet_getSize", (DL_FUNC) &_RcppWavelet_getSize, 4},
     {NULL, NULL, 0}
