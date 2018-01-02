@@ -9,7 +9,7 @@
 Two wavelets are currently implemented: Morlet and Paul.
 
 ```r
-Wavelet <- RcppWavelet::analyzeParallel(signal,
+Wavelet <- RcppWavelet::analyzeParallel(x = signal_to_analyze,
                                         bands_per_octave = 128,
                                         frequency_min = 0.02,
                                         frequency_max = 0.5,
@@ -32,6 +32,14 @@ The returned object is a list of four elements:
 #### Signal Reconstruction
 
 `RcppWavelet::reconstruct()` 
+
+
+### System Requirements
+
++ Armadillo - C++ Linear Algebra Library
++ Boost C++ Libraries
++ OpenMP
++ *Potential - libFFTW*
 
 ### Potential Further Development
 

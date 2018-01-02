@@ -46,12 +46,7 @@ Rcpp::List analyze(std::vector<double> x,
   std::size_t numbands(cwt.size());
   cwt.reset();
   
-  arma::cx_mat scalogram = NULL;
-  if (cores > 2) {
-    arma::cx_mat scalogram = cwt.processParallel(x, cores);
-  } else {
-   arma::cx_mat scalogram = cwt.process(x);
-  }
+  arma::cx_mat scalogram = cwt.processParallel(x, cores);
   
   std::vector<double> frequencies = cwt.frequencies;
   
