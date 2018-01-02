@@ -2,18 +2,18 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 analyze <- function(x, bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1) {
-    .Call('RcppWavelet_analyze', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz)
+    .Call('_RcppWavelet_analyze', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz)
 }
 
 analyzeParallel <- function(x, bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1, cores = 1L) {
-    .Call('RcppWavelet_analyzeParallel', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, cores)
+    .Call('_RcppWavelet_analyzeParallel', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, cores)
 }
 
 getScales <- function(bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1) {
-    .Call('RcppWavelet_getScales', PACKAGE = 'RcppWavelet', bands_per_octave, frequency_min, frequency_max, samplerate_hz)
+    .Call('_RcppWavelet_getScales', PACKAGE = 'RcppWavelet', bands_per_octave, frequency_min, frequency_max, samplerate_hz)
 }
 
 getSize <- function(bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1) {
-    .Call('RcppWavelet_getSize', PACKAGE = 'RcppWavelet', bands_per_octave, frequency_min, frequency_max, samplerate_hz)
+    .Call('_RcppWavelet_getSize', PACKAGE = 'RcppWavelet', bands_per_octave, frequency_min, frequency_max, samplerate_hz)
 }
 

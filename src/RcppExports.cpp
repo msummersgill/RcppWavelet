@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // analyze
 Rcpp::List analyze(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
-RcppExport SEXP RcppWavelet_analyze(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
+RcppExport SEXP _RcppWavelet_analyze(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,7 +23,7 @@ END_RCPP
 }
 // analyzeParallel
 Rcpp::List analyzeParallel(std::vector<double> x, float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz, int cores);
-RcppExport SEXP RcppWavelet_analyzeParallel(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP, SEXP coresSEXP) {
+RcppExport SEXP _RcppWavelet_analyzeParallel(SEXP xSEXP, SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP, SEXP coresSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -39,7 +39,7 @@ END_RCPP
 }
 // getScales
 arma::vec getScales(float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
-RcppExport SEXP RcppWavelet_getScales(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
+RcppExport SEXP _RcppWavelet_getScales(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -53,7 +53,7 @@ END_RCPP
 }
 // getSize
 std::size_t getSize(float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
-RcppExport SEXP RcppWavelet_getSize(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
+RcppExport SEXP _RcppWavelet_getSize(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -67,10 +67,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"RcppWavelet_analyze", (DL_FUNC) &RcppWavelet_analyze, 5},
-    {"RcppWavelet_analyzeParallel", (DL_FUNC) &RcppWavelet_analyzeParallel, 6},
-    {"RcppWavelet_getScales", (DL_FUNC) &RcppWavelet_getScales, 4},
-    {"RcppWavelet_getSize", (DL_FUNC) &RcppWavelet_getSize, 4},
+    {"_RcppWavelet_analyze", (DL_FUNC) &_RcppWavelet_analyze, 5},
+    {"_RcppWavelet_analyzeParallel", (DL_FUNC) &_RcppWavelet_analyzeParallel, 6},
+    {"_RcppWavelet_getScales", (DL_FUNC) &_RcppWavelet_getScales, 4},
+    {"_RcppWavelet_getSize", (DL_FUNC) &_RcppWavelet_getSize, 4},
     {NULL, NULL, 0}
 };
 

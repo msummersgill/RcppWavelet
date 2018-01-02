@@ -10,12 +10,15 @@ Rcpp::List analyze(std::vector<double> x,
                              float bands_per_octave = 8,
                              float frequency_min = 0.001953125,
                              float frequency_max = 0.5,
-                             float samplerate_hz = 1) {
+                             float samplerate_hz = 1,
+                             std::string use_family = "MORLET") {
   wavelet::Filterbank cwt(samplerate_hz,
                           frequency_min,
                           frequency_max,
                           bands_per_octave);
   std::size_t numbands(cwt.size());
+  
+  cwt.setAttribute("family",use_family);
   cwt.reset();
   arma::cx_mat scalogram = cwt.process(x);
   //std::vector<double> periods = cwt.scales;
@@ -32,12 +35,14 @@ Rcpp::List analyzeParallel(std::vector<double> x,
                              float frequency_min = 0.001953125,
                              float frequency_max = 0.5,
                              float samplerate_hz = 1,
-                             int cores = 1) {
+                             int cores = 1,
+                             std::string use_family = "MORLET") {
   wavelet::Filterbank cwt(samplerate_hz,
                           frequency_min,
                           frequency_max,
                           bands_per_octave);
   std::size_t numbands(cwt.size());
+  cwt.setAttribute("family",use_family);
   cwt.reset();
   arma::cx_mat scalogram = cwt.processParallel(x, cores);
   //std::vector<double> periods = cwt.scales;
