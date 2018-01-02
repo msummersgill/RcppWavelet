@@ -45,10 +45,15 @@ Rcpp::List analyze(std::vector<double> x,
   cwt.reset();
   arma::cx_mat scalogram = cwt.process(x);
   std::vector<double> frequencies = cwt.frequencies;
-  arma::vec periods = 1/arma::conv_to<arma::vec>::from(frequencies); 
+  
+  arma::vec periods_arma = 1/arma::conv_to<arma::vec>::from(frequencies); 
+  Rcpp::NumericVector periods = Rcpp::wrap(periods_arma);
+  periods.attr("dim") = R_NilValue;
+  
   std::string configuration = cwt.info();
   return Rcpp::List::create(Rcpp::Named("signal")=x,
                             Rcpp::Named("scalogram")=scalogram,
+                            Rcpp::Named("frequencies")=frequencies,
                             Rcpp::Named("periods")=periods,
                             Rcpp::Named("configuration")=configuration);
 }

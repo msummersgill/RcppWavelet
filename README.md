@@ -22,7 +22,8 @@ The returned object is a list of four elements:
 
 + signal: a normalized input vector of numeric values 
 + scalogram: a complex matrix representing the continuous wavelet transform of the input vector.
-+ periods: the periods of each band calculated
++ frequencies: the periods of each band calculated
++ periods: the corresponding periods for each band
 + configuration: a summary of the wavelet's parameters
 
 
