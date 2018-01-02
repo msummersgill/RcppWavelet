@@ -43,7 +43,8 @@ Rcpp::List analyzeParallel(std::vector<double> x,
                              float samplerate_hz = 1,
                              int cores = 1,
                              std::string mother_wavelet = "MORLET",
-                             std::string optimisation = "NONE") {
+                             std::string optimisation = "NONE",
+                             float carrier = 5) {
   
   wavelet::Filterbank cwt(samplerate_hz,
                           frequency_min,
@@ -58,7 +59,16 @@ Rcpp::List analyzeParallel(std::vector<double> x,
     throw std::runtime_error("Invalid mother_wavelet. Try 'MORLET' or 'PAUL'");
   }
   
-  cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::STANDARD);
+  cwt.setAttribute("omega0",carrier);
+  //if (optimisation == "NONE") {
+  //  cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::NONE);
+  //} else if (optimisation == "STANDARD") {
+  //  cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::STANDARD);
+  //} else if (optimisation == "AGRESSIVE") {
+  //  cwt.setAttribute("optimisation",wavelet::Filterbank::Optimisation::AGRESSIVE);
+  //} else {
+  //  throw std::runtime_error("Invalid optimisation. Try 'NONE', 'STANDARD', or 'AGGRESSIVE'");
+  //}
   
   std::size_t numbands(cwt.size());
   cwt.reset();

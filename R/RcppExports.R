@@ -5,8 +5,8 @@ analyze <- function(x, bands_per_octave = 8, frequency_min = 0.001953125, freque
     .Call('_RcppWavelet_analyze', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, mother_wavelet)
 }
 
-analyzeParallel <- function(x, bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1, cores = 1L, mother_wavelet = "MORLET", optimization = "NONE") {
-    .Call('_RcppWavelet_analyzeParallel', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, cores, mother_wavelet, optimization)
+analyzeParallel <- function(x, bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1, cores = 1L, mother_wavelet = "MORLET", optimisation = "NONE", carrier = 5) {
+    .Call('_RcppWavelet_analyzeParallel', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, cores, mother_wavelet, optimisation, carrier)
 }
 
 getScales <- function(bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1) {
