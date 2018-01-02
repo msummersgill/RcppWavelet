@@ -33,6 +33,14 @@ The returned object is a list of four elements:
 
 `RcppWavelet::reconstruct()` 
 
+
+### System Requirements
+
++ Armadillo - C++ Linear Algebra Library
++ Boost C++ Libraries
++ OpenMP
++ *Potential - libFFTW*
+
 ### Potential Further Development
 
 + Helper functions for input de-trending, filtering, and normalization
