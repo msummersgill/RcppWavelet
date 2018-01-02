@@ -5,3 +5,9 @@
 src/*.o
 src/*.so
 src/*.dll
+local_only/*
+*.rds
+*.html
+*.nb.html
+*.utf8.md
+*.knit.md
