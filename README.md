@@ -4,7 +4,7 @@
 
 ### Core Functionality
 
-`RcppWavelet::analyze()` and `RcppWavelet::analyzeParallel()` are two functions that execute a continuous wavelet transform on an input numeric vector. Inputs and outputs are identical, but `analyzeParallel()` uses `openmp` to enable multi-threading. Since the calculation of coefficients for each band can be executed independently, the processing time is substantially reduced for each additional core used.
+`RcppWavelet::analyze()` executes a continuous wavelet transform on an input numeric vector. Specifying `cores > 1` uses `openmp` to enable multi-threading. Since the calculation of coefficients for each band can be executed independently, the processing time is substantially reduced for each additional core used.
 
 Two wavelets are currently implemented: Morlet and Paul.
 

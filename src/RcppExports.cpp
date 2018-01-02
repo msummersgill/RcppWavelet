@@ -26,39 +26,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// getScales
-arma::vec getScales(float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
-RcppExport SEXP _RcppWavelet_getScales(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< float >::type bands_per_octave(bands_per_octaveSEXP);
-    Rcpp::traits::input_parameter< float >::type frequency_min(frequency_minSEXP);
-    Rcpp::traits::input_parameter< float >::type frequency_max(frequency_maxSEXP);
-    Rcpp::traits::input_parameter< float >::type samplerate_hz(samplerate_hzSEXP);
-    rcpp_result_gen = Rcpp::wrap(getScales(bands_per_octave, frequency_min, frequency_max, samplerate_hz));
-    return rcpp_result_gen;
-END_RCPP
-}
-// getSize
-std::size_t getSize(float bands_per_octave, float frequency_min, float frequency_max, float samplerate_hz);
-RcppExport SEXP _RcppWavelet_getSize(SEXP bands_per_octaveSEXP, SEXP frequency_minSEXP, SEXP frequency_maxSEXP, SEXP samplerate_hzSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< float >::type bands_per_octave(bands_per_octaveSEXP);
-    Rcpp::traits::input_parameter< float >::type frequency_min(frequency_minSEXP);
-    Rcpp::traits::input_parameter< float >::type frequency_max(frequency_maxSEXP);
-    Rcpp::traits::input_parameter< float >::type samplerate_hz(samplerate_hzSEXP);
-    rcpp_result_gen = Rcpp::wrap(getSize(bands_per_octave, frequency_min, frequency_max, samplerate_hz));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_RcppWavelet_analyze", (DL_FUNC) &_RcppWavelet_analyze, 10},
-    {"_RcppWavelet_getScales", (DL_FUNC) &_RcppWavelet_getScales, 4},
-    {"_RcppWavelet_getSize", (DL_FUNC) &_RcppWavelet_getSize, 4},
     {NULL, NULL, 0}
 };
 

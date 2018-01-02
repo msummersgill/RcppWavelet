@@ -9,7 +9,6 @@ using namespace Rcpp;
 // [[Rcpp::depends(RcppArmadillo)]]
 
 
-// [[Rcpp::export]]
 arma::vec getScales(float bands_per_octave = 8,
                               float frequency_min = 0.001953125,
                               float frequency_max = 0.5,
@@ -25,7 +24,6 @@ arma::vec getScales(float bands_per_octave = 8,
   return periods;
 }
 
-// [[Rcpp::export]]
 std::size_t getSize(float bands_per_octave = 8,
                               float frequency_min = 0.001953125,
                               float frequency_max = 0.5,

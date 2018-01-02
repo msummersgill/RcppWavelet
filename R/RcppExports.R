@@ -5,11 +5,3 @@ analyze <- function(x, bands_per_octave = 8, frequency_min = 0.001953125, freque
     .Call('_RcppWavelet_analyze', PACKAGE = 'RcppWavelet', x, bands_per_octave, frequency_min, frequency_max, samplerate_hz, mother_wavelet, morlet_carrier, paul_order, cores, optimisation)
 }
 
-getScales <- function(bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1) {
-    .Call('_RcppWavelet_getScales', PACKAGE = 'RcppWavelet', bands_per_octave, frequency_min, frequency_max, samplerate_hz)
-}
-
-getSize <- function(bands_per_octave = 8, frequency_min = 0.001953125, frequency_max = 0.5, samplerate_hz = 1) {
-    .Call('_RcppWavelet_getSize', PACKAGE = 'RcppWavelet', bands_per_octave, frequency_min, frequency_max, samplerate_hz)
-}
-
