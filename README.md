@@ -63,8 +63,6 @@ The returned object is a list of five elements.
 `RcppWavelet::reconstruct()` 
 
 
-
-
 ### Potential Further Development
 
 + Helper functions for input de-trending, filtering, and normalization
