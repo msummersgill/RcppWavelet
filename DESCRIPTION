@@ -1,8 +1,8 @@
 Package: RcppWavelet
 Type: Package
 Title: C++ Implemententation of Continuous Wavelet Transform
-Version: 1.0
-Date: 2017-06-22
+Version: 0.1
+Date: 2018-01-02
 Authors@R: person("Matt", "Summersgill", email = "matt.summersgill@hpidc.com",role = c("aut", "cre"))
 Description: C++ Implemententation of Continuous Wavelet Transform
 License: GPL 3.0

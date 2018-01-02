@@ -47,7 +47,8 @@ Rcpp::List analyze(std::vector<double> x,
   std::vector<double> frequencies = cwt.frequencies;
   arma::vec periods = 1/arma::conv_to<arma::vec>::from(frequencies); 
   std::string configuration = cwt.info();
-  return Rcpp::List::create(Rcpp::Named("scalogram")=scalogram,
+  return Rcpp::List::create(Rcpp::Named("signal")=x,
+                            Rcpp::Named("scalogram")=scalogram,
                             Rcpp::Named("periods")=periods,
                             Rcpp::Named("configuration")=configuration);
 }
@@ -96,7 +97,8 @@ Rcpp::List analyzeParallel(std::vector<double> x,
   std::vector<double> frequencies = cwt.frequencies;
   arma::vec periods = 1/arma::conv_to<arma::vec>::from(frequencies); 
   std::string configuration = cwt.info();
-  return Rcpp::List::create(Rcpp::Named("scalogram")=scalogram,
+  return Rcpp::List::create(Rcpp::Named("signal")=x,
+                            Rcpp::Named("scalogram")=scalogram,
                             Rcpp::Named("periods")=periods,
                             Rcpp::Named("configuration")=configuration);
 }
