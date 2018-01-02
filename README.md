@@ -2,7 +2,7 @@
 
 *Based on the [work of Jules Françoise and Frederic Bevilacqua at IRCAM](https://github.com/Ircam-RnD/wavelet)*
 
-## Installation
+### Installation
 
 System Requirements:
 
