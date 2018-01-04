@@ -62,6 +62,8 @@ The returned object is a list of five elements.
 
 `RcppWavelet::reconstruct()` 
 
+Reconstructs signal based on wavelet transform.
+
 
 ### Potential Further Development
 
