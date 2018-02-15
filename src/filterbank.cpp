@@ -435,7 +435,7 @@ return scalogram;
 
 
 
- */
+
 arma::cx_mat wavelet::Filterbank::process_online(std::vector<double> values)
 {
     arma::cx_mat scalogram(values.size(), size());
