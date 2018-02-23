@@ -2,7 +2,11 @@
 
 *Based on the [work of Jules Françoise and Frederic Bevilacqua at IRCAM](https://github.com/Ircam-RnD/wavelet)*
 
-> A simple vignette: [Using RcppWavelet](https://msummersgill.github.io/RcppWavelet/Using_RcppWavelet.nb.html)
+### Overview
+
+The intent of the RcppWavelet package is to enable high performance wavelet analysis of time series data using R.
+
+**A short vignette, [Using RcppWavelet](https://msummersgill.github.io/RcppWavelet/Using_RcppWavelet.nb.html), shows a simple use case.**
 
 ### Installation
 
