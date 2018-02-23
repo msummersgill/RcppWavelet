@@ -2,9 +2,13 @@
 
 *Based on the [work of Jules Françoise and Frederic Bevilacqua at IRCAM](https://github.com/Ircam-RnD/wavelet)*
 
+> A simple vignette: [Using RcppWavelet](https://msummersgill.github.io/RcppWavelet/Using_RcppWavelet.nb.html)
+
 ### Installation
 
 System Requirements:
+
+*This has only been tested on Ubuntu 14.04, and currently fails to compile on my Windows PC*
 
 + Armadillo - C++ Linear Algebra Library
 + Boost C++ Libraries
