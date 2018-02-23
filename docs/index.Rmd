@@ -1,6 +1,7 @@
 ---
 title: "Using RcppWavelet"
-output: html_notebook
+author: Matt Summersgill
+output: html_document
 ---
 
 
